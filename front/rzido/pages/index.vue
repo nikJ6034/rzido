@@ -4,7 +4,7 @@
         <ul>
             <template  v-if="!$store.state.userInfo">
                 <li><nuxt-link to='/hello/signin'>로그인</nuxt-link></li>
-                <li><nuxt-link to='/login'>회원가입</nuxt-link></li>
+                <li><nuxt-link to='/hello/signup'>회원가입</nuxt-link></li>
             </template>
             <template  v-else>
                 <li class="user">{{$store.state.userInfo.ieumUserName}}님 환영합니다.</li>
