@@ -35,6 +35,7 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  plugins: [{src: '~/plugins/route.js', ssr: true},'~/plugins/token']
 }
 
