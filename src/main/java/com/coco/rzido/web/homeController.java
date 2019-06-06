@@ -11,7 +11,7 @@ public class homeController {
 
     @GetMapping("/")
     public String home(){
-        return "집이다";
+        return "집이다 2222";
     }
     
 }
