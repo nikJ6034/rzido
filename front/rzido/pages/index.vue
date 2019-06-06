@@ -1,5 +1,17 @@
 <template>
   <section class="container">
+      <div class="con-area">
+        <ul>
+            <template  v-if="!$store.state.userInfo">
+                <li><nuxt-link to='/hello/signin'>로그인</nuxt-link></li>
+                <li><nuxt-link to='/login'>회원가입</nuxt-link></li>
+            </template>
+            <template  v-else>
+                <li class="user">{{$store.state.userInfo.ieumUserName}}님 환영합니다.</li>
+                <li><button type="button" @click="logout">로그아웃</button></li>
+            </template>
+        </ul>
+    </div>
     <div>
       <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=152e92776f0d7051da092720060f2eb3"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUYOsfi9dX-CdH9v4RB6tLcvRP03LrdvU&amp;callback=initMap" async defer></script>
@@ -35,6 +47,11 @@ export default {
       this.options.center = mapObj.LatLng(33.450701, 126.570667)
       let map = mapObj.createMap(container,mapObj.mapOptions(this.options)); //지도 생성 및 객체 리턴
       mapObj.marker({position:mapObj.LatLng(33.450701, 126.570667), map:map});
+    },
+    logout : function(){
+      this.$store.dispatch('LOGOUT');
+      /* this.$store.dispatch('LOGOUT');
+	    next('/'); */
     }
   },
   components: {

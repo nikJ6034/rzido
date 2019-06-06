@@ -1,4 +1,9 @@
 export default function ({ app, store }) {
   
-    app.router.onReady(() => console.log("처음 실행"))
+    app.router.onReady(() => {
+      if (process.client) {
+        const {ieumRefreshToken} = localStorage;
+        store.dispatch('REFRESHTOKEN',ieumRefreshToken);
+      }
+    })
   }
