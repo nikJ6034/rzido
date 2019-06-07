@@ -34,11 +34,13 @@ public class AuthService {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> decodedDetails = (LinkedHashMap<String, Object>)details.getDecodedDetails();
 			String id = decodedDetails.get("id").toString();
+			String name = decodedDetails.get("name").toString();
 			Collection<GrantedAuthority> authorities = jwt.getAuthorities();
 			authDTO.setAuthorities(authorities);
 			authDTO.setAdmin(authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN")));
 			authDTO.setMemberId(Long.parseLong(id));
 			authDTO.setMemberName(jwt.getName());
+			authDTO.setName(name);
 			authDTO.authenticated(jwt.isAuthenticated());
 			return authDTO;
 		}).orElse(new AuthDTO());

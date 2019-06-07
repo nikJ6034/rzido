@@ -7,11 +7,14 @@ import com.coco.rzido.member.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter @Getter
 public class AuthDTO {
 	private Long memberId;
 	private String memberName;
+	private String name;
 	private boolean admin;
 	private Collection<GrantedAuthority> authorities;
 	private boolean authenticated = false;

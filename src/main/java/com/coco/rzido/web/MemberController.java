@@ -60,7 +60,8 @@ public class MemberController {
 		}else{
 			menuRole = menuRoleService.getMenuRole(auth.getAuthorities(), menu);
 		} */
-
+		map.put("memberName", auth.getMemberName());
+		map.put("name", auth.getName());
 		map.put("id", auth.getMemberId());
 		map.put("isAdmin", auth.isAdmin());
 		// map.put("menuRole", menuRole);
