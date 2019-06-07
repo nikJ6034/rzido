@@ -6,7 +6,6 @@ import com.coco.rzido.member.entity.Member;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -2,8 +2,8 @@ package com.coco.rzido.attachFile.service;
 
 import java.util.Optional;
 
-import com.coco.rzido.attachFile.entity.AttachFile;
-import com.coco.rzido.attachFile.repository.AttachFileRepository;
+import com.coco.rzido.attachFile.entity.AttachFileImage;
+import com.coco.rzido.attachFile.repository.AttachFileImageRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 public class FileService {
     
     @Autowired
-    AttachFileRepository attachFileRepository;
+    AttachFileImageRepository attachFileImageRepository;
     
-    public Optional<AttachFile> one(long id){
-        return attachFileRepository.findById(id);
+    public Optional<AttachFileImage> one(long id){
+        return attachFileImageRepository.findById(id);
     }
     
 }

@@ -6,17 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.Data;
+import com.coco.rzido.common.entity.BaseEntity;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-public class Api {
+@Getter @Setter
+public class Api extends BaseEntity{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column
 	private String url;
-	@Column(length=1)
-	private String useYN;
 	
 	@Column(length=1)
 	private String readRole = "N";
