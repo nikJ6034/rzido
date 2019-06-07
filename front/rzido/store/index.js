@@ -1,63 +1,64 @@
+import Vue from 'vue'
 import Vuex from 'vuex'
 import $http from 'axios'
 import $qs from 'qs';
 
- const store = () => new Vuex.Store({
-    state: {
-      //basePath : "https://ieumschool.com:44054",
-      basePath : "http://localhost:8080",
-      userInfo : null,
-      ieumAccessToken: null,
-      ieumUserId : null,
-      ieumUserName : null,
-      isAdmin: false,
-      menuRole: {},
-      menu: {},
-      menuLevel : [],
-      kind : null,
-      token : null,
-    },
-    getters: {
-      restWebPath : state=>{
-          return `${state.basePath}/api/web`;
-        },
-      restAdminPath : state=>{
-          return `${state.basePath}/api/admin`;
-        }
-    },
-    mutations: {
-      LOGIN (state, session) {
-        localStorage.ieumRefreshToken = session["refresh_token"];
-        let userInfo = {};
-        userInfo.ieumAccessToken = session["access_token"];
-        userInfo.ieumUserName = session["name"];
-        userInfo.ieumUserId = session["id"];
-        state.userInfo = userInfo;
-        $http.defaults.headers.common['Authorization'] = "Bearer "+session["access_token"];
-      },
-      LOGOUT (state) {
-          state.userInfo = null;
-         
-          delete $http.defaults.headers.common["Authorization"];
-          delete localStorage.ieumRefreshToken;
-          if(Kakao){
-              Kakao.Auth.logout();
+Vue.use(Vuex)
+
+    const state = {
+        basePath : "http://localhost:8080",
+        userInfo : null,
+        isAdmin: false,
+        menuRole: {},
+        menu: {},
+        menuLevel : [],
+        kind : null,
+        token : null,
+    }
+
+    const getters = {
+        restWebPath : state=>{
+            return `${state.basePath}/api/web`;
+          },
+        restAdminPath : state=>{
+            return `${state.basePath}/api/admin`;
           }
-      },
-      LOGINCHECK (state, data){
-        if(data){
-          state.isAdmin = data.isAdmin||false;
-        }
-      },
-      MENU(state, data) {
-          state.menu = data;
-      },
-      SIGNUPREADY(state, data){
-          state.kind = data.kind;
-          state.token = data.token;
+    }
+
+    const mutations = {
+        LOGIN (state, session) {
+            localStorage.ieumRefreshToken = session["refresh_token"];
+            let userInfo = {};
+            userInfo.ieumAccessToken = session["access_token"];
+            userInfo.ieumUserName = session["name"];
+            userInfo.ieumUserId = session["id"];
+            state.userInfo = userInfo;
+            $http.defaults.headers.common['Authorization'] = "Bearer "+session["access_token"];
+          },
+          LOGOUT (state) {
+              state.userInfo = null;
+             
+              delete $http.defaults.headers.common["Authorization"];
+              delete localStorage.ieumRefreshToken;
+              if(Kakao){
+                  Kakao.Auth.logout();
+              }
+          },
+          LOGINCHECK (state, data){
+            if(data){
+              state.isAdmin = data.isAdmin||false;
+            }
+          },
+          MENU(state, data) {
+              state.menu = data;
+          },
+          SIGNUPREADY(state, data){
+              state.kind = data.kind;
+              state.token = data.token;
+          }
       }
-    },
-    actions: {
+
+      export const actions = {
         LOGIN: function ({commit}, {memberName, memberPassword, kind}) {
             let str = $qs.stringify({
                 grant_type: 'password',
@@ -124,6 +125,12 @@ import $qs from 'qs';
           commit('LOGINCHECK', session);
       }
     }
+
+ const store = () => new Vuex.Store({
+    state,
+    getters,
+    mutations,
+    actions
   })
   
   export default store;
