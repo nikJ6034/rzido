@@ -1,8 +1,14 @@
 package com.coco.rzido.web;
 
+import java.awt.Menu;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.coco.rzido.auth.dto.AuthDTO;
 import com.coco.rzido.config.oAuth2.AuthService;
 import com.coco.rzido.member.dto.SignupDTO;
 import com.coco.rzido.member.service.MemberService;
@@ -40,26 +46,26 @@ public class MemberController {
 
 	}
 	
-	/*@RequestMapping(value = "/roleState", method = RequestMethod.GET)
+	@RequestMapping(value = "/me", method = RequestMethod.GET)
 	public Map<String, Object> memberInfo(Principal principal, HttpSession session, HttpServletRequest request, String url) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		MenuRole menuRole = new MenuRole();
-		Menu menu = menuService.getMenuByUrl(url);
+		/* MenuRole menuRole = new MenuRole();
+		Menu menu = menuService.getMenuByUrl(url); */
 		AuthDTO auth = authService.getAuth();
-		if(auth.isAdmin()){
+		/* if(auth.isAdmin()){
 			menuRole.setDeleteRole("Y");
 			menuRole.setModifyRole("Y");
 			menuRole.setReadRole("Y");
 			menuRole.setWriteRole("Y");
 		}else{
 			menuRole = menuRoleService.getMenuRole(auth.getAuthorities(), menu);
-		}
+		} */
 
 		map.put("id", auth.getMemberId());
 		map.put("isAdmin", auth.isAdmin());
-		map.put("menuRole", menuRole);
+		// map.put("menuRole", menuRole);
 		return map;
-	}*/
+	}
 
 	@RequestMapping(value = "/existsMember", method = RequestMethod.GET)
 	public Map<String, Object> existsMember(String memberName){
