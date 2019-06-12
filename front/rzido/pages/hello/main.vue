@@ -1,21 +1,32 @@
 <template>
   <section class="container">
-      <div class="con-area">
-        <ul>
-            <template  v-if="!$store.state.userInfo">
-                <li><nuxt-link to='/hello/signin'>로그인</nuxt-link></li>
-                <li><nuxt-link to='/hello/signup'>회원가입</nuxt-link></li>
-            </template>
-            <template  v-else>
-                <li class="user">{{$store.state.userInfo.ieumUserName}}님 환영합니다.</li>
-                <li><button type="button" @click="logout">로그아웃</button></li>
-            </template>
-        </ul>
+    <div class="map-con">
+        <div id="map" style="width:100%;height:600px;"></div>
     </div>
-    <div>
-      <button type="button" @click="rgmap('kakao')">다음 지도</button><button type="button" @click="rgmap('google')">구글 지도</button>
-      <div id="map" style="width:500px;height:400px;"></div>
+    <div class="con-area">
+        <div>
+            <div>
+                <div style="float:left">
+                    <ul>
+                        <template  v-if="!$store.state.userInfo">
+                            <li><nuxt-link to='/hello/signin'>로그인</nuxt-link></li>
+                            <li><nuxt-link to='/hello/signup'>회원가입</nuxt-link></li>
+                        </template>
+                        <template  v-else>
+                            <li class="user">{{$store.state.userInfo.ieumUserName}}님 환영합니다.</li>
+                            <li><button type="button" @click="logout">로그아웃</button></li>
+                        </template>
+                    </ul>
+                </div>
+                <div style="float:right">
+                    <button type="button" @click="rgmap('kakao')">다음 지도</button><button type="button" @click="rgmap('google')">구글 지도</button>
+                </div>
+            </div>
+            
+            
+        </div>
     </div>
+    
   </section>
 </template>
 
@@ -71,12 +82,40 @@ export default {
 </script>
 
 <style>
+ul li {list-style:none}
+ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+li {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    border : 0;
+    float: left;
+}
 .container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  
+}
+.con-area{
+    display: inline-block;
+    width: 29%;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+.map-con {
+    width: 70%;
+    height: 600px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+.map-btn-area {
+    text-align: right;
+    margin: 10px;
 }
 
 .title {
