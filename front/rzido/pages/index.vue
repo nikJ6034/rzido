@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       options : {level : 3},
-      markerList : [{lat : 36.348724, lng:127.368097 },{lat : 36.347842, lng:127.371134}]
+      markerList : [{lat : 36.348724, lng:127.368097 },{lat : 36.347842, lng:127.371134}],
     }
   },
   methods: {

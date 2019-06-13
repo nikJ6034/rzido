@@ -14,8 +14,8 @@ module.exports = {
     ],
     script : [
       {src : "//developers.kakao.com/sdk/js/kakao.min.js"},
-      {src : "//dapi.kakao.com/v2/maps/sdk.js?appkey=152e92776f0d7051da092720060f2eb3"},
-      {src : "//maps.googleapis.com/maps/api/js?key=AIzaSyAUYOsfi9dX-CdH9v4RB6tLcvRP03LrdvU&amp;callback=initMap"},
+      {src : "//dapi.kakao.com/v2/maps/sdk.js?appkey=152e92776f0d7051da092720060f2eb3&libraries=services"},
+      {src : "//maps.googleapis.com/maps/api/js?key=AIzaSyAUYOsfi9dX-CdH9v4RB6tLcvRP03LrdvU&callback=initMap&language=ko&region=KR&libraries=places"},
     ]
   },
   /*

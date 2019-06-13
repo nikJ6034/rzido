@@ -9,7 +9,7 @@ Vue.use(Vuex)
         basePath : "http://localhost:8080",
         userInfo : null,
         isAdmin: false,
-        menuRole: {},
+        map: "kakao",
         menu: {},
         menuLevel : [],
         kind : null,

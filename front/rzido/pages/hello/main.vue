@@ -4,7 +4,7 @@
         <div id="map" style="width:100%;height:600px;"></div>
     </div>
     <div class="con-area">
-        <div>
+        <div style="overflow: hidden;">
             <div>
                 <div style="float:left">
                     <ul>
@@ -24,6 +24,16 @@
             </div>
             
             
+            
+        </div>
+        <div>
+          <input v-show="$store.state.map =='google'" id="pac-input" class="controls" type="text" placeholder="Search Box">
+          <input v-show="$store.state.map =='kakao'" id="kakaoSearch" type="text" placeholder="Search Box">
+          <div>
+              <div v-for="item in searchPlaces" :key="item.id">
+                {{item.name}}
+              </div>
+          </div>
         </div>
     </div>
     
@@ -36,16 +46,18 @@ import rgMap from '~/plugins/map/rgMap.js'
 import marker1 from '~/assets/images/markers/marker1.png'
 export default {
   mounted(){
-    this.rgmap("kakao");
+    this.rgmap(this.$store.state.map);
   },
   data() {
     return {
       options : {level : 3},
-      markerList : [{lat : 36.348724, lng:127.368097 },{lat : 36.347842, lng:127.371134}]
+      markerList : [{lat : 36.348724, lng:127.368097 },{lat : 36.347842, lng:127.371134}],
+      searchPlaces : []
     }
   },
   methods: {
     rgmap : function(kind){
+      this.$store.state.map = kind;
       let mapObj = rgMap.map(kind);
       let container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
       this.options.center = mapObj.LatLng(36.348724, 127.368097);
@@ -53,6 +65,14 @@ export default {
       let imageSize = mapObj.size(41,63);
       let imageOption = {offset: mapObj.point(20, 63)};
       let markerImage = mapObj.markerImage(marker1, imageSize, imageOption);
+      let input = null;
+      if(kind=="google"){
+        input = document.getElementById('pac-input');
+      }else{
+        input = document.getElementById('kakaoSearch');
+      }
+      
+      mapObj.searchBox(input,this);
 
       mapObj.addListener(map,"center_changed", function(){
         console.log(mapObj.getCenter());
