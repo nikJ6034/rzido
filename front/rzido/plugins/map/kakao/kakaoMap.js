@@ -1,8 +1,12 @@
 import kakaoOptions from "./kakaoMapOptions"
 export default{
     map : null,
+    rgMapMarker : [],
+    searchMarker : [],
     createMap : function(container, options){
-        this.map = new daum.maps.Map(container, kakaoOptions.mapOptions(options)); //지도 생성 및 객체 리턴
+        // if(!this.map){
+            this.map = new daum.maps.Map(container, kakaoOptions.mapOptions(options)); //지도 생성 및 객체 리턴
+        // }
         return this.map;
     },
     LatLng : function(lat, lng){
@@ -89,5 +93,18 @@ export default{
                 infowindow.open(_this.map, marker);
             });
         }
+    },
+    markerClusterer : function(markers){
+        let clusterer = new daum.maps.MarkerClusterer({
+            map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+            minLevel: 1, // 클러스터 할 최소 지도 레벨
+            disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+        });
+        clusterer.addMarkers(markers);
+
+        this.addListener(clusterer,'clusterclick', function(cluster){
+            console.log(cluster.getMarkers());
+        });
     }
 }

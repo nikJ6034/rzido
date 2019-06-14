@@ -13,9 +13,11 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script : [
+      {src : "//code.jquery.com/jquery-1.12.4.min.js"},
       {src : "//developers.kakao.com/sdk/js/kakao.min.js"},
-      {src : "//dapi.kakao.com/v2/maps/sdk.js?appkey=152e92776f0d7051da092720060f2eb3&libraries=services"},
-      {src : "//maps.googleapis.com/maps/api/js?key=AIzaSyAUYOsfi9dX-CdH9v4RB6tLcvRP03LrdvU&callback=initMap&language=ko&region=KR&libraries=places"},
+      {src : "//dapi.kakao.com/v2/maps/sdk.js?appkey=152e92776f0d7051da092720060f2eb3&libraries=clusterer,services"},
+      {src : "//maps.googleapis.com/maps/api/js?key=AIzaSyAUYOsfi9dX-CdH9v4RB6tLcvRP03LrdvU&callback=initMap&language=ko&region=KR&libraries=places", defer: true, async: true},
+      {src : "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"},
     ]
   },
   /*

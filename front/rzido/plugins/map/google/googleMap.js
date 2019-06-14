@@ -4,7 +4,9 @@ export default{
     rgMapMarker : [],
     searchMarker : [],
     createMap : function(container, options){
-        this.map = new google.maps.Map(container, googleOptions.mapOptions(options));
+        // if(!this.map){
+            this.map = new google.maps.Map(container, googleOptions.mapOptions(options));
+        // }
         return this.map;
     },
     LatLng : function(lat, lng){
@@ -102,5 +104,14 @@ export default{
             _this.map.fitBounds(bounds);
 
           });
+    },
+    markerClusterer : function(markers){
+        let _this = this;
+        let clusterer = new MarkerClusterer(this.map, markers,
+            {zoomOnClick:false, imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+        _this.addListener(clusterer,'clusterclick', function(cluster){
+            console.log(cluster.getMarkers());
+        });
     }
 }

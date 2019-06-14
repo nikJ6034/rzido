@@ -1,7 +1,9 @@
 <template>
   <section class="container">
-    <div class="map-con">
-        <div id="map" style="width:100%;height:600px;"></div>
+    <div class="map-con" id="map-con">
+        <div id="map" style="width:100%;height:600px;">
+
+        </div>
     </div>
     <div class="con-area">
         <div style="overflow: hidden;">
@@ -50,8 +52,8 @@ export default {
   },
   data() {
     return {
-      options : {level : 3},
-      markerList : [{lat : 36.348724, lng:127.368097 },{lat : 36.347842, lng:127.371134}],
+      options : {level : 10},
+      markerList : [{lat : 36.341262, lng:127.389555, name:"1" },{lat : 36.341711, lng: 127.382860, name:"1" },{lat : 36.341711, lng: 127.382860, name:"1" },{lat : 36.348724, lng:127.368097, name:"1" },{lat : 36.347842, lng:127.371134, name:"1"}],
       searchPlaces : []
     }
   },
@@ -59,7 +61,16 @@ export default {
     rgmap : function(kind){
       this.$store.state.map = kind;
       let mapObj = rgMap.map(kind);
-      let container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+      
+      let mapCon = document.getElementById('map-con');
+      var div = document.createElement('div');
+      div.id = "map";
+      div.style.width= "100%";
+      div.style.height= "600px";
+      mapCon.innerHTML = div.outerHTML;
+
+      document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+      let container = document.getElementById('map')
       this.options.center = mapObj.LatLng(36.348724, 127.368097);
       let map = mapObj.createMap(container,this.options); //지도 생성 및 객체 리턴
       let imageSize = mapObj.size(41,63);
@@ -75,19 +86,23 @@ export default {
       mapObj.searchBox(input,this);
 
       mapObj.addListener(map,"center_changed", function(){
-        console.log(mapObj.getCenter());
+        //console.log(mapObj.getCenter());
       })
 
       mapObj.addListener(map,"zoom_changed", function(){
         console.log(mapObj.getLevel());
       })
       
-      this.markerList.forEach(element => {
-        let marker = mapObj.marker({position:mapObj.LatLng(element.lat, element.lng),image:markerImage, map:map});
-        mapObj.addListener(marker,"click", function(){
-          alert("클릭");
-        });
+      let markers = this.markerList.map(function(location){
+          let marker = mapObj.marker({position:mapObj.LatLng(location.lat, location.lng)  ,image:markerImage/*, map:map */ });
+          marker.name = location.name;
+          mapObj.addListener(marker,"click", function(){
+            alert("클릭");
+          });
+          return marker;
       });
+      let clusterer = mapObj.markerClusterer(markers);
+      
     },
     logout : function(){
       this.$store.dispatch('LOGOUT');
